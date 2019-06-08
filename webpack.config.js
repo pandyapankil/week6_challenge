@@ -4,8 +4,9 @@ const nodeExternals = require('webpack-node-externals');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
+  mode: 'development',
   entry: {
-    server: './server.js',
+    server: './src/server/server.js',
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -37,11 +38,11 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new HtmlWebPackPlugin({
-      template: "./index.html",
-      filename: "./index.html",
-      excludeChunks: [ 'server' ]
-    })
-  ]
+  // plugins: [
+  //   new HtmlWebPackPlugin({
+  //     template: "./src/views/index.html",
+  //     filename: "./index.html",
+  //     excludeChunks: [ 'server' ]
+  //   })
+  // ]
 }

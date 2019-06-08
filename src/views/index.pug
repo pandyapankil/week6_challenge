@@ -1,0 +1,30 @@
+extends layout.pug
+block content
+	#app.container
+		.row
+			.col-lg-6.col-lg-offset-3
+				center
+					h3 PaveAI is hiring
+				div(v-if='!formSubmitted')
+					include jd.pug
+					br
+					br
+					br
+					center
+						h3 Interested?
+					div(style='color: tomato', v-cloak) {{errorMsg}}
+					p Enter your name and email below and we will be in touch soon.
+					form(v-on:submit='submit', method='POST', action='#')
+						.form-group
+							input#exampleInputName.form-control(v-model='inputName', name='name', type='text', placeholder='Name')
+							br
+							input#exampleInputEmail1.form-control(v-model='inputEmail', name='email', type='email', aria-describedby='emailHelp', placeholder='Email')
+						center
+							button.btn.btn-primary(type='submit') Submit
+					br
+					br
+					br
+					br
+					br
+				div(v-else)
+					center(v-cloak) {{postText}}
