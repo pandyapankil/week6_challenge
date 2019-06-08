@@ -1,0 +1,26 @@
+{
+  "name": "week6_challenge",
+  "version": "1.0.0",
+  "description": "hiring project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pandyapankil/week6_challenge.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pandyapankil/week6_challenge/issues"
+  },
+  "homepage": "https://github.com/pandyapankil/week6_challenge#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^2.6.1",
+    "express": "^4.17.1",
+    "express-validator": "^5.3.1",
+    "mongodb": "^3.2.7"
+  }
+}
