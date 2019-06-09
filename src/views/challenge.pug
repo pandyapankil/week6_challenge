@@ -1,0 +1,69 @@
+extends layout.pug
+block content
+	script.
+		(function(d, s, id){
+			SE_BASE = "5b4d87e7.widgets.sphere-engine.com";
+			SE_HTTPS = true;
+			SE = window.SE || (window.SE = []);
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = (SE_HTTPS ? "https" : "http") + "://" + SE_BASE + "/static/sdk/sdk.min.js";
+			fjs.parentNode.insertBefore(js, fjs);
+			SE.ready = function(f){if (document.readyState != "loading" && document.readyState != "interactive") f();else window.addEventListener("load", f);};
+			SE.ready(function() {
+				var welcomeUser = function(data) {
+					var data2 = jQuery.extend(true, {"url": window.location.search}, data);
+					$.post( "/challenge_start", data2 );
+				};
+				var SEWidget = SE.widget("widget");
+				SEWidget.events.subscribe('welcomeUser', welcomeUser);
+
+			});
+		}(document, "script", "sphere-engine-jssdk"))
+	#app(style="height: 100%;")
+		.container(v-if='startPage')
+			.container
+				.row
+					.col-lg-12
+						p The maximum score is 100pts. You can close the window once you have achieved that score and feel satisfied with your code. The most important things are <strong>time to completion</strong> (30 minute limit but quicker is better) and <strong>big O complexity</strong>.
+		#widgetDiv(v-show='startPage', style="height: 100%;")
+			#widget.se-widget(data-widget='qzV40GKPTS')
+		.startChallenge(v-if='startPage')
+			.container
+				.row.small If you see a "Runtime error", please temporarily enable third-party cookies in your browser (or use a different browser for the challenge). We appologize for the inconvenience.
+		.container(v-else)
+			.row
+				.col-lg-6.col-lg-offset-3
+					center
+						h3 Instructions
+					br
+					ol
+						li This is a programming test.
+						li You may use any language however the following are preferred: Python/Java/C/C++/Rust/Javacsript.
+						li You may write your code in any IDE or editor you prefer. You only need to copy+paste the final code solution.
+						li We will take your submission with the highest score. If you have multiple submissions with the same high score, we will take the one with the best time.
+						li It DOES NOT matter how messy your code is, just that it passes all the test cases and it has good run time (big O) performance. DO NOT comment your code or write tests, just finish as soon as possible.
+					div
+						strong Speed is very important and time is being tracked so finish as quickly as you can.
+						p There is a 30 minute time limit but the sooner you finish, the better.
+					br
+					br
+					div
+						center
+							a(style='cursor: pointer;', @click='startPage = true')
+								button.btn.btn-primary start
+					br
+					br
+					br
+					br
+					br
+					br
+					include jd.pug
+					br
+					br
+					br
+					br
+					br
+					br
+

@@ -28,7 +28,7 @@ let v = new Vue({
 			else {
 				NProgress.inc();
 				let resp = await axios
-					.post('/api/initial_submit', {
+					.post('/initial_submit', {
 							name: this.inputName,
 							email: this.inputEmail,
 							url: document.URL
