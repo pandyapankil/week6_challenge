@@ -13,28 +13,19 @@ Hiring Website
 Note: Can add multiple rounds of interviews using same logic.
 
 
-                                   									**Hiring Website**
+                                **Hiring Website**
 User form -> Fields: [Name, Email]
-	  -> Events: [onSubmit] -> Save it into MongoDB with Fields: [
-		  id(md5_hash),
-		  name,
-		  email,
-		  status('initial_submit'),
-		  challenge_time(null),
-		  last_time(current_time),
-		  challenge_start_time(null),
-		  score(null),
-		  apply_count(++, default 0)]
-	  ==> MongoDB Trigger: [onSave] -> Send an email using some API with custom link (https://customurl.com/challenge?id={{id}})
+          -> Events: [onSubmit] -> Save it into MongoDB with Fields: [id(md5_hash), name, email, status('initial_submit'), challenge_time(null), last_time(current_time), challenge_start_time(null), score(null), apply_count(++, default 0)]
+      ==> MongoDB Trigger: [onSave] -> Send an email using some API with custom link (https://customurl.com/challenge?id={{id}})
 note: if user's id is already in system and last_time is not more than 179 days then don't send an email.
 
 
 Sphere engine page -> Fields: [Name, Email]
-		    -> Events: [onSubmit] -> Update MongoDB fields: [status('started_challenge'), challenge_start_time(current_time)]
+            -> Events: [onSubmit] -> Update MongoDB fields: [status('started_challenge'), challenge_start_time(current_time)]
 
 
 Sphere engine's post page -> Events: [onSubmit] -> Update MongoDB fields: [status(if score is 100 then 'passed_challenge' else 'attempted_challenge'),  score(score), challenge_time(current_time - challenge_start_time)
-			==> MongoDB Trigger: [onSave] -> if status is 'passed_challenge' and challenge_time <= 30 minutes then "send and email with google form link" as well as calendar to select a time slot for the on-site interview.
+            ==> MongoDB Trigger: [onSave] -> if status is 'passed_challenge' and challenge_time <= 30 minutes then "send and email with google form link" as well as calendar to select a time slot for the on-site interview.
 
 
 
