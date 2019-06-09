@@ -13,7 +13,7 @@ Hiring Website
 Note: Can add multiple rounds of interviews using same logic.
 
 
-                                    **Hiring Website**
+                                   									**Hiring Website**
 User form -> Fields: [Name, Email]
 	  -> Events: [onSubmit] -> Save it into MongoDB with Fields: [
 		  id(md5_hash),
