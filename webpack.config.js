@@ -1,9 +1,7 @@
 const path = require('path');
-const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
-const HtmlWebPackPlugin = require("html-webpack-plugin");
 
-module.exports = {
+module.exports = [{
   mode: 'development',
   entry: {
     server: './src/server/server.js',
@@ -34,12 +32,63 @@ module.exports = {
         use: [{loader: "html-loader"}]
       }
     ]
+  }
+},
+{
+  mode: 'development',
+  entry: './src/scripts/index.js',
+  output: {
+    path: path.resolve(__dirname, './src/views'),
+    publicPath: '/views/',
+    filename: 'build.js'
   },
-  // plugins: [
-  //   new HtmlWebPackPlugin({
-  //     template: "./src/views/index.html",
-  //     filename: "./index.html",
-  //     excludeChunks: [ 'server' ]
-  //   })
-  // ]
+  watch: true,
+  module: {
+    rules: [
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          loaders: {
+            // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
+            // the "scss" and "sass" values for the lang attribute to the right configs here.
+            // other preprocessors should work out of the box, no loader config like this necessary.
+            'scss': 'vue-style-loader!css-loader!sass-loader',
+            'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax',
+          }
+          // other vue-loader options go here
+        }
+      },
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+        options: {
+          appendTsSuffixTo: [/\.vue$/],
+        }
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]?[hash]'
+        }
+      }
+    ]
+  },
+  resolve: {
+    extensions: ['.ts', '.js', '.vue', '.json'],
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    }
+  },
+  devServer: {
+    historyApiFallback: true,
+    noInfo: true
+  },
+  performance: {
+    hints: false
+  },
+  devtool: '#eval-source-map'
 }
+]

@@ -1,13 +1,13 @@
 import express from 'express';
 import path from 'path';
 import {client, dbName, collectionName} from './db';
-// import client from './db';
 
 const app = express(),
             DIST_DIR = __dirname,
             HTML_PATH = path.join(DIST_DIR, '../src/views/');
 var collection;
 app.set('views', HTML_PATH);
+app.use(express.static(path.join(__dirname, '/../src/views')));
 app.set('view engine', 'pug');
 
 app.get('/abc', (req, res) => {
