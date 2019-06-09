@@ -25,10 +25,7 @@ module.exports = {
       {
         // Transpiles ES6-8 into ES5
         test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
-        }
+        exclude: /node_modules/
       },
       {
         // Loads the javacript into html template provided.

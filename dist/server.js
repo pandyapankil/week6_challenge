@@ -94,7 +94,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! express */ \"express\");\n/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! path */ \"path\");\n/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(path__WEBPACK_IMPORTED_MODULE_1__);\n\n\nvar app = express__WEBPACK_IMPORTED_MODULE_0___default()(),\n    DIST_DIR = __dirname,\n    HTML_PATH = path__WEBPACK_IMPORTED_MODULE_1___default.a.join(DIST_DIR, '../src/views/');\nconsole.log('here', HTML_PATH);\napp.set('views', HTML_PATH);\napp.set('view engine', 'pug');\napp.get('/abc', function (req, res) {\n  res.render('index');\n});\napp.get('/', function (req, res) {\n  res.render('index');\n});\nvar PORT = process.env.PORT || 3000;\napp.listen(PORT, function () {\n  console.log(\"App listening to \".concat(PORT, \"....\"));\n  console.log('Press Ctrl+C to quit.');\n});\n\n//# sourceURL=webpack:///./src/server/server.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! express */ \"express\");\n/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! path */ \"path\");\n/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(path__WEBPACK_IMPORTED_MODULE_1__);\n\n\n\nconst app = express__WEBPACK_IMPORTED_MODULE_0___default()(),\n            DIST_DIR = __dirname,\n            HTML_PATH = path__WEBPACK_IMPORTED_MODULE_1___default.a.join(DIST_DIR, '../src/views/');\nconst MongoClient = __webpack_require__(/*! mongodb */ \"mongodb\").MongoClient;\nconst uri = \"mongodb+srv://pankil:pankiladmin@week5cluster-acske.mongodb.net/test?retryWrites=true&w=majority\";\nconst client = new MongoClient(uri, { useNewUrlParser: true });\nvar collection;\n\napp.set('views', HTML_PATH);\napp.set('view engine', 'pug');\n\napp.get('/abc', (req, res) => {\n    res.render('index')\n});\n\napp.get('/', async (req, res) => {\n    // res.render('index')\n    try {\n        const result = await collection.find({}).toArray();\n        res.send(result);\n    } catch (err) {\n        return res.status(500).send(error);\n    }\n});\n\nconst PORT = process.env.PORT || 3000;\napp.listen(PORT, () => {\n\n    client.connect((err, result) => {\n        if (err) {\n            throw err;\n        }\n        collection = client.db(\"sample_airbnb\").collection(\"listingsAndReviews\");\n    });\n\n    console.log(`App listening to ${PORT}....`)\n    console.log('Press Ctrl+C to quit.')\n});\n\n\n//# sourceURL=webpack:///./src/server/server.js?");
 
 /***/ }),
 
@@ -106,6 +106,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var expr
 /***/ (function(module, exports) {
 
 eval("module.exports = require(\"express\");\n\n//# sourceURL=webpack:///external_%22express%22?");
+
+/***/ }),
+
+/***/ "mongodb":
+/*!**************************!*\
+  !*** external "mongodb" ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"mongodb\");\n\n//# sourceURL=webpack:///external_%22mongodb%22?");
 
 /***/ }),
 
